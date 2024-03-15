@@ -1,0 +1,47 @@
+---
+// Import Astro's built-in Components functionality
+import { Astro } from 'astro/components';
+
+// Define the props the component accepts
+interface ProjectItemProps {
+  name: string;
+  status: string;
+  overview: string;
+}
+
+const defaultProps: ProjectItemProps = {
+  name: '',
+  status: '',
+  overview: '',
+};
+
+// Destructure props for easy access
+const { name, status, overview } = Astro.props as ProjectItemProps;
+---
+
+<article class="project-item">
+  <h2 class="project-name">{name}</h2>
+  <p class="project-status">{status}</p>
+  <p class="project-overview">{overview}</p>
+</article>
+
+<style>
+  .project-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .project-name {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  .project-status {
+    font-size: 1rem;
+    color: #666;
+  }
+  .project-overview {
+    font-size: 1rem;
+    color: #444;
+  }
+</style>
