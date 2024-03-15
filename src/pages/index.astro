@@ -1,7 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import ProjectItem from '../components/ProjectItem.astro';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'YOUR_SUPABASE_URL';
+const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+const { data: projects, error } = await supabase
+  .from('projects')
+  .select('*');
 ---
+
+<Layout title="Welcome to Astro.">
+	<main>
+		<h1>Real Estate Projects</h1>
+		{projects.map(project => (
+			<ProjectItem 
+				name={project.name} 
+				status={project.status} 
+				overview={project.overview} 
+			/>
+		))}
+	</main>
+</Layout>
 
 <Layout title="Welcome to Astro.">
 	<main>
