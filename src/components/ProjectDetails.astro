@@ -1,0 +1,68 @@
+---
+import { Astro } from 'astro/components';
+import ProjectItem from './ProjectItem.astro';
+
+interface ProjectDetailsProps {
+  name: string;
+  status: string;
+  overview: string;
+  images: { ImagePath: string, ImageDescription: string }[];
+  floorPlans: string[];
+  price: string;
+  developer: string;
+  buildingType: string;
+  unitsStories: string;
+  bedrooms: string;
+  sizeSqFt: string;
+  estimatedCompletion: string;
+  units: any[];
+}
+
+const { name, status, overview, images, floorPlans, price, developer, buildingType, unitsStories, bedrooms, sizeSqFt, estimatedCompletion, units } = Astro.props as ProjectDetailsProps;
+---
+
+<article class="project-details">
+  <ProjectItem name={name} status={status} overview={overview} />
+  <div class="images">
+    {images.map(image => (
+      <img src={image.ImagePath} alt={image.ImageDescription} />
+    ))}
+  </div>
+  <div class="floor-plans">
+    {floorPlans.map(plan => (
+      <img src={plan} alt="Floor Plan" />
+    ))}
+  </div>
+  <div class="details">
+    <p>Price: {price}</p>
+    <p>Developer: {developer}</p>
+    <p>Building Type: {buildingType}</p>
+    <p>Units/Stories: {unitsStories}</p>
+    <p>Bedrooms: {bedrooms}</p>
+    <p>Size: {sizeSqFt} SqFt</p>
+    <p>Estimated Completion: {estimatedCompletion}</p>
+  </div>
+  <div class="units">
+    {units.map(unit => (
+      <div class="unit">
+        <p>Unit Name: {unit.unitName}</p>
+        <p>Price: {unit.price}</p>
+        <p>SqFt: {unit.sqft}</p>
+      </div>
+    ))}
+  </div>
+</article>
+
+<style>
+  .project-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .images img, .floor-plans img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .details p, .units .unit p {
+    margin: 5px 0;
+  }
+</style>
